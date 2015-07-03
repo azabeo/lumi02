@@ -1,0 +1,1 @@
+pred,resp,res.name,model,formula,consts,par.startrepetition,conc;time,m.conc;time.avg,model.mean;model.mean,,,time.step,m.conc,k,model.conc,m.conc ~ ((consts[1] - p2)*exp(-(p1)*time.step))+p2,C0,"p1=0.001,p2=0.1"rcf;rpm,k,k1g,model.rcf,k ~ 0 + rcf,,C0,k1g,allconc,model.mean,,,particle,allconc,tot,model.mean,,,

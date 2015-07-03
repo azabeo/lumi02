@@ -1,0 +1,1 @@
+pred,resp,res.name,model,formula,consts,par.starttime,conc,k,model.conc,conc ~ consts[1]*exp(-(p1)*time),6,p1=0.001rpm,k,k1g,model.rpm,k ~ rpm,NA,NAC0,k1g,allconc,model.C0,NA,NA,NAparticle,allconc,tot,model.particle,NA,NA,NA

@@ -1,0 +1,19 @@
+# History files
+.Rhistory
+.Rapp.history
+.RData
+.Rbuildignore
+lumi02.Rproj
+.Rprofile
+# Example code in package build process
+*-Ex.R
+# RStudio files
+.Rproj.user/
+# produced vignettes
+vignettes/*.html
+vignettes/*.pdf
+.Rproj.user
+# Example data
+/example.data/
+/export/*
+*.xlsx

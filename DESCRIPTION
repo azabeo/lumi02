@@ -1,0 +1,13 @@
+Package: lumi02
+Type: Package
+Title: lumisizer results assessment
+Version: 2.0
+Date: 2015-03-16
+Author: Alex Zabeo <alex.zabeo@unive.it>
+Maintainer: Alex Zabeo <alex.zabeo@unive.it>
+Description: From transmittance data calculates corresponding absorbance, then evaluates absorbance derivative and selects the mean derivative. From a set of derivatives for different concentrations and Rpms it evaluates the derivative at 1g for every concentration and then the general derivative integratin all concentrations.
+License: <to be decided>
+Depends:
+  data.table,
+    ggplot2,
+    logging
