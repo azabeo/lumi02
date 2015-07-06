@@ -17,22 +17,25 @@ print.export <- function(file.name,p,inch=3,ppi=300){
   dev.off()
 }
 
-export.images <- function(res,fittings,inch=3,ppi=300,dir='export/'){
+export.images <- function(res,fittings,inch=3,ppi=300,dir='export'){
 
   parts <- unique(res[[1]][,particle])
   
   for(part in parts){
     Cs = unique(res[[1]][particle==part,C0])
+    ylab=paste0(part," concentration (mg/l)")
     for(c in Cs){
       where = paste0("particle=='",part,"' & C0==",c)
-      p <- plotit(res,fittings,where,"rpm","time.avg","m.conc",print=FALSE)
+      #p <- plotit(res,fittings,where,"rpm","time.avg","m.conc",print=FALSE)
+      p <- plotit(res,fittings,where,"rpm","time.avg","m.conc",'RPM ','','centrifugation time (s)',ylab,print=FALSE)
       file.name = paste0(dir,part,'_',formatC(c, width=3, flag="0"),'.png')
       
       print.export(file.name,p,inch,ppi)
     }
     
     where = paste0("particle=='",part,"'")
-    p <- plotit(res,fittings,where,"C0","rcf","k",print = FALSE)
+    #p <- plotit(res,fittings,where,"C0","rcf","k",print = FALSE)
+    p <- plotit(res,fittings,where,"C0","rcf","k",'ENM initial concentration: ',' mg/l','RCF','k (s-1)',print = FALSE)
     file.name = paste0(dir,part,'_k.png')
     
     print.export(file.name,p,inch,ppi)

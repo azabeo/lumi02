@@ -16,7 +16,7 @@
 #' @examples
 #' plotit(res,fittings,list(particle='NC7000',C0=10),"rpm","time","conc")
 #' @export
-plotit <- function(res,fittings,where,by,x,y,size=2,print=TRUE){
+plotit <- function(res,fittings,where,by,x,y,pre.facet.label='',post.facet.label=NULL,x.label=NULL,y.label='',auto.title=FALSE,size=2,print=TRUE){
   library(ggplot2)
   
   # get the data to plot points from correct res table filtered by where
@@ -74,6 +74,21 @@ plotit <- function(res,fittings,where,by,x,y,size=2,print=TRUE){
  
   has.std = any(names(d)=='std.err')
   
+  name_labeller <- function(variable,value){
+    return(paste0(pre.facet.label,value,post.facet.label))
+  }
+  
+  if(by!=""){
+    
+    by.order = sort(unique(d[,get(by)]))
+    by.order = paste(pre.facet.label,by.order,post.facet.label,sep="")
+    
+    
+    d[,by.name := paste0(pre.facet.label,get(by),post.facet.label)]
+    d$by.name <- factor(d$by.name, levels = by.order, ordered = TRUE)
+  
+  }
+  
   p <- ggplot(d,  aes_string(x = x, y = y)) + geom_point(colour="orange",size=size)
   
   if(has.std){
@@ -101,10 +116,21 @@ plotit <- function(res,fittings,where,by,x,y,size=2,print=TRUE){
 #   }
   
   if(by!=""){
-    p <- p + facet_wrap( as.formula(paste("~", paste0(by,collapse = ' + '))))
+    # p <- p + facet_wrap( as.formula(paste("~", paste0(by.name,collapse = ' + '))), scales = "free_x")
+    p <- p + facet_wrap( ~by.name, scales = "free_x")
   }
   
-  p <- p + labs(title=paste(where,"BY",paste0(by,collapse = ", ")))
+  if(auto.title){
+    p <- p + labs(title=paste(where,"BY",paste0(by,collapse = ", ")))
+  }
+  
+  if(!is.null(x.label)){
+    p <- p + xlab(x.label)
+  }
+  
+  if(!is.null(y.label)){
+    p <- p + ylab(y.label)
+  }
   
   if(print){
     print(p)
