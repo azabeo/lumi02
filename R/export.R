@@ -12,9 +12,10 @@ export<-function(res,dir='export/'){
 
 print.export <- function(file.name,p,inch=3,ppi=300){
   logd('Saving: ',file.name)
-  png(file.name, width=inch*ppi, height=inch*ppi, res=ppi)
-  print(p)
-  dev.off()
+#   png(file.name, width=inch*ppi, height=inch*ppi, res=ppi)
+#   print(p)
+#   dev.off()
+  ggsave(plot=p, file=file.name, units="in", width=inch, height=inch, dpi=ppi)
 }
 
 export.images <- function(res,fittings,inch=3,ppi=300,dir='export',which=1){
@@ -24,7 +25,7 @@ export.images <- function(res,fittings,inch=3,ppi=300,dir='export',which=1){
   for(part in parts){
     if(which==1){
       Cs = unique(res[[1]][particle==part,C0])
-      ylab=paste0(part," concentration (mg/l)")
+      ylab=paste0(part," concentration (mg\u00b7l-1)")
       for(c in Cs){
         where = paste0("particle=='",part,"' & C0==",c)
         #p <- plotit(res,fittings,where,"rpm","time.avg","m.conc",print=FALSE)
@@ -37,7 +38,7 @@ export.images <- function(res,fittings,inch=3,ppi=300,dir='export',which=1){
     
     if(which==2){
       Cs = unique(res[[1]][particle==part,rpm])
-      ylab=paste0(part," concentration (mg/l)")
+      ylab=paste0(part," concentration (mg\u00b7l-1)")
       for(c in Cs){
         where = paste0("particle=='",part,"' & rpm==",c)
         #p <- plotit(res,fittings,where,"rpm","time.avg","m.conc",print=FALSE)
@@ -51,7 +52,7 @@ export.images <- function(res,fittings,inch=3,ppi=300,dir='export',which=1){
     
     where = paste0("particle=='",part,"'")
     #p <- plotit(res,fittings,where,"C0","rcf","k",print = FALSE)
-    p <- plotit(res,fittings,where,"C0","rcf","k",'ENM initial concentration: ',' mg/l','RCF','k (s-1)',print = FALSE)
+    p <- plotit(res,fittings,where,"C0","rcf","k",'ENM initial concentration: '," mg\u00b7l-1",'RCF','k (s-1)',print = FALSE)
     file.name = paste0(dir,part,'_k.png')
     
     print.export(file.name,p,inch,ppi)
